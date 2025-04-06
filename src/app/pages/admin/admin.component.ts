@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IAppState } from '../../store/AppState';
+import { IAppState, IDataState } from '../../store/AppState';
+import { selectCount } from '../../store/counter/counter.selector';
+import { selectData } from '../../store/data/data.selector';
 
 @Component({
   selector: 'app-admin',
@@ -12,8 +14,10 @@ import { IAppState } from '../../store/AppState';
 })
 export class AdminComponent implements OnInit {
   count:Observable<number>;
-  constructor(private readonly store:Store<IAppState>) { 
-    this.count=this.store.select('count');
+  userList$:Observable<any> | undefined;
+  constructor(private readonly store:Store<IAppState & IDataState>) { 
+    this.count=this.store.select(selectCount);
+    this.userList$ = this.store.select(selectData);
   }
 
   ngOnInit() {

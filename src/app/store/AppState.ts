@@ -1,3 +1,11 @@
+
+
 export interface IAppState {
-    count:number;
+    counter:number;
+}
+
+export interface IDataState {
+    data:any
+    loading:boolean,
+    error:any
 }

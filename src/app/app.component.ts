@@ -1,26 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { AdminComponent } from "./pages/admin/admin.component";
 import { UserComponent } from "./pages/user/user.component";
 import { Store } from '@ngrx/store';
 import { IAppState } from './store/AppState';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { decrement, increment } from './store/counter.action';
+import { decrement, increment } from './store/counter/counter.action';
+import { selectCount } from './store/counter/counter.selector';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AdminComponent, UserComponent,CommonModule],
+  imports: [RouterOutlet, AdminComponent, UserComponent,CommonModule,RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  counter:number=0;
-  counter$:Observable<number>;
-  constructor(private readonly store:Store<IAppState>
-  )
+  counter$:Observable<number>=new Observable<number>;
+  constructor(private readonly store:Store<IAppState>)
   {
-    this.counter$ = this.store.select('count');
+    this.counter$ = this.store.select(selectCount);
   }
 
 
