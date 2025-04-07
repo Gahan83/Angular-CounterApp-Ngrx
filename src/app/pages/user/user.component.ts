@@ -11,17 +11,15 @@ import { selectData } from '../../store/data/data.selector';
   selector: 'app-user',
   templateUrl: './user.component.html',
   imports: [CommonModule],
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-count:Observable<number>;
-userList$:Observable<any> | undefined;
-  constructor(private readonly store: Store<IAppState & IDataState>) { 
-    this.count=this.store.select(selectCount);
-    this.store.dispatch(loadData())
+  count: Observable<number>;
+  userList$: Observable<any> | undefined;
+  constructor(private readonly store: Store<IAppState & IDataState>) {
+    this.count = this.store.select(selectCount);
     this.userList$ = this.store.select(selectData);
+    if (this.userList$) this.store.dispatch(loadData());
   }
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

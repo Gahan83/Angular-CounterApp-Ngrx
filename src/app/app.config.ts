@@ -17,6 +17,6 @@ export const appConfig: ApplicationConfig = {
       data: dataReducer,
       counter:counterReducer
     }),
-    //provideEffects([DataEffects])
+    provideEffects([DataEffects])
   ]
 };

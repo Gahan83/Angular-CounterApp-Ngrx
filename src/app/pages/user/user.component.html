@@ -1,3 +1,6 @@
 {{count | async}}
-
-{{userList$ | async}}
+<ul>
+    <li *ngFor="let user of userList$ | async">
+        {{user.name}}
+    </li>
+</ul>   
