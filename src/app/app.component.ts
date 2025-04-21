@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -8,6 +8,8 @@ import { UserComponent } from './pages/user/user.component';
 import { IAppState } from './store/AppState';
 import { decrement, increment } from './store/counter/counter.action';
 import { selectCount } from './store/counter/counter.selector';
+import { loadDepartment } from './store/department/department.action';
+import { selectDepartments, selectLoading } from './store/department/department.selector';
 
 @Component({
   selector: 'app-root',
@@ -17,22 +19,32 @@ import { selectCount } from './store/counter/counter.selector';
     UserComponent,
     CommonModule,
     RouterLink,
+    AsyncPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  counter$: Observable<number> = new Observable<number>();
-  constructor(private readonly store: Store<IAppState>) {
-    this.counter$ = this.store.select(selectCount);
-  }
+export class AppComponent implements OnInit{
+  
+  private store=inject(Store)
 
-  onDecrement() {
-    //this.counter --;
-    this.store.dispatch(decrement());
+  departments$=this.store.select(selectDepartments);
+  loading$=this.store.select(selectLoading);
+
+  ngOnInit(): void {
+    this.store.dispatch(loadDepartment());
   }
-  onIncrement() {
-    //this.counter ++;
-    this.store.dispatch(increment());
-  }
+  // counter$: Observable<number> = new Observable<number>();
+  // constructor(private readonly store: Store<IAppState>) {
+  //   this.counter$ = this.store.select(selectCount);
+  // }
+
+  // onDecrement() {
+  //   //this.counter --;
+  //   this.store.dispatch(decrement());
+  // }
+  // onIncrement() {
+  //   //this.counter ++;
+  //   this.store.dispatch(increment());
+  // }
 }

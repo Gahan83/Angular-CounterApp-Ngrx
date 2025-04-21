@@ -10,4 +10,8 @@ export class DataService {
   getUsers() {
     return this.httpClient.get('https://jsonplaceholder.typicode.com/users');
   }
+
+  getDepartments() {
+    return this.httpClient.get('https://api.freeprojectapi.com/api/EmployeeApp/GetDepartments');
+  }
 }

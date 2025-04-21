@@ -7,6 +7,8 @@ import { provideEffects } from '@ngrx/effects';
 import { DataEffects } from './store/data/data.effect';
 import { dataReducer } from './store/data/data.reducer';
 import { counterReducer } from './store/counter/counter.reducer';
+import { departmentReducer } from './store/department/department.reducer';
+import { DepartmentEffects } from './store/department/department.effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,8 +17,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideStore({
       data: dataReducer,
-      counter:counterReducer
+      counter:counterReducer,
+      departments: departmentReducer
     }),
-    provideEffects([DataEffects])
+    provideEffects([DataEffects,DepartmentEffects])
   ]
 };

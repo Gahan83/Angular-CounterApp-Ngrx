@@ -1,4 +1,4 @@
-
+<!-- 
 <button (click)="onDecrement()">Decrement</button> - 
 <a routerLink="/user">User</a> 
  | {{counter$ | async}} |
@@ -7,12 +7,19 @@
 <table style="width: 100%;">
   <tr>
     <td>
-      <!-- <app-admin></app-admin> -->
+      <app-admin></app-admin>
     </td>
     <td>
-      <!-- <app-user></app-user> -->
+      <app-user></app-user>
     </td>
   </tr>
 </table>
 
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
+loading => {{loading$ | async}}
+
+<ul>
+  @for (item of departments$ | async; track $index) {
+    <li>{{item.departmentName}}</li>
+  }
+</ul>
